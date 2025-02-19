@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stylish Website with Background Image, Music Player & Names Modal</title>
   <style>
+    /* Container to center content on mobile and desktop */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
     /* Header Styles */
     .header {
       background-size: cover;
@@ -74,6 +80,7 @@
       gap: 10px;
       padding: 20px;
       justify-items: center;
+      margin: 0 auto;
     }
     .gallery-item {
       text-align: center;
@@ -136,6 +143,7 @@
       font-family: 'Georgia', serif;
       font-size: 1.2em;
       color: #333;
+      animation: slideDown 0.5s ease-out;
     }
     #namesModal .names-content ol {
       margin: 0;
@@ -144,7 +152,11 @@
     #namesModal .names-content li {
       margin: 5px 0;
     }
-    /* Ensure center alignment on mobile and desktop */
+    @keyframes slideDown {
+      from { transform: translateY(-20%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* Responsive adjustments if needed */
     @media (max-width: 600px) {
       .gallery {
         grid-template-columns: 1fr 1fr;
@@ -158,44 +170,46 @@
     <h1>INDIAN ARMY</h1>
   </header>
   
-  <!-- Music Player placed below header -->
-  <div class="music-player">
-    <audio controls>
-      <source src="https://thelxcode.github.io/AudioPlayer/music/Hare_Hare__Hum_to_dil_se_hare__-_Lofi_Song_%5BSlowed___Reverb%5D___ShariqueKhan___Nic_Lofi(256k).mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-  
-  <!-- Names Button placed below Music Player -->
-  <div class="names-button-container">
-    <button onclick="openNamesModal()">Names</button>
-  </div>
-  
-  <!-- Gallery of Posters -->
-  <div class="gallery">
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/7PzDjYW3/soldier.jpg" onclick="openModal(this.src)" alt="Photo 1">
-      <div class="date">18 Feb 2025</div>
+  <div class="container">
+    <!-- Music Player placed below header -->
+    <div class="music-player">
+      <audio controls>
+        <source src="https://thelxcode.github.io/AudioPlayer/music/Hare_Hare__Hum_to_dil_se_hare__-_Lofi_Song_%5BSlowed___Reverb%5D___ShariqueKhan___Nic_Lofi(256k).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/ncYxcSZM/soldier1.jpg" onclick="openModal(this.src)" alt="Photo 2">
-      <div class="date">18 Feb 2025</div>
+    
+    <!-- Names Button placed below Music Player -->
+    <div class="names-button-container">
+      <button onclick="toggleNamesModal()">Names</button>
     </div>
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/FKnNXfvZ/soldier2.jpg" onclick="openModal(this.src)" alt="Photo 3">
-      <div class="date">18 Feb 2025</div>
-    </div>
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/ydMKWwk3/soldier3.jpg" onclick="openModal(this.src)" alt="Photo 4">
-      <div class="date">18 Feb 2025</div>
-    </div>
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/wTdHz8CS/army6.jpg" onclick="openModal(this.src)" alt="Photo 5">
-      <div class="date">18 Feb 2025</div>
-    </div>
-    <div class="gallery-item">
-      <img src="https://i.postimg.cc/7PzDjYW3/soldier.jpg" onclick="openModal(this.src)" alt="Photo 6">
-      <div class="date">18 Feb 2025</div>
+    
+    <!-- Gallery of Posters -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/7PzDjYW3/soldier.jpg" onclick="openModal(this.src)" alt="Photo 1">
+        <div class="date">18 Feb 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/ncYxcSZM/soldier1.jpg" onclick="openModal(this.src)" alt="Photo 2">
+        <div class="date">18 Feb 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/FKnNXfvZ/soldier2.jpg" onclick="openModal(this.src)" alt="Photo 3">
+        <div class="date">18 Feb 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/ydMKWwk3/soldier3.jpg" onclick="openModal(this.src)" alt="Photo 4">
+        <div class="date">18 Feb 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/wTdHz8CS/army6.jpg" onclick="openModal(this.src)" alt="Photo 5">
+        <div class="date">18 Feb 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://i.postimg.cc/7PzDjYW3/soldier.jpg" onclick="openModal(this.src)" alt="Photo 6">
+        <div class="date">18 Feb 2025</div>
+      </div>
     </div>
   </div>
   
@@ -207,7 +221,7 @@
   
   <!-- Modal for Names -->
   <div id="namesModal" class="modal">
-    <span class="close" onclick="closeNamesModal()">&times;</span>
+    <span class="close" onclick="toggleNamesModal()">&times;</span>
     <div class="names-content">
       <ol>
         <li>Ankit</li>
@@ -245,11 +259,13 @@
       document.getElementById("myModal").style.display = "none";
     }
     
-    function openNamesModal() {
-      document.getElementById("namesModal").style.display = "flex";
-    }
-    function closeNamesModal() {
-      document.getElementById("namesModal").style.display = "none";
+    function toggleNamesModal() {
+      const namesModal = document.getElementById("namesModal");
+      if (namesModal.style.display === "flex") {
+        namesModal.style.display = "none";
+      } else {
+        namesModal.style.display = "flex";
+      }
     }
     
     document.addEventListener("DOMContentLoaded", function() {
