@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stylish Website with Background Image & Music Player</title>
+  <title>Stylish Website with Background Image, Music Player & Names Modal</title>
   <style>
+    /* Header Styles */
     .header {
       background-size: cover;
       background-position: center;
@@ -33,7 +34,7 @@
       from, to { border-color: transparent; }
       50% { border-color: orange; }
     }
-    /* Music player placed between header and gallery */
+    /* Music Player Styles */
     .music-player {
       margin: 20px auto;
       background-color: #32CD32; /* Lime Green */
@@ -47,6 +48,26 @@
     .music-player audio {
       width: 200px;
     }
+    /* Names Button Styles */
+    .names-button-container {
+      text-align: center;
+      margin: 20px;
+    }
+    .names-button-container button {
+      background-color: #32CD32;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+    .names-button-container button:hover {
+      background-color: #2eb82e;
+    }
+    /* Gallery Styles */
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -78,6 +99,7 @@
       font-size: 14px;
       color: gray;
     }
+    /* Modal Styles for Images */
     .modal {
       display: none;
       position: fixed;
@@ -104,14 +126,39 @@
       font-weight: bold;
       cursor: pointer;
     }
+    /* Modal Styles for Names */
+    #namesModal .names-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 300px;
+      text-align: left;
+      font-family: 'Georgia', serif;
+      font-size: 1.2em;
+      color: #333;
+    }
+    #namesModal .names-content ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    #namesModal .names-content li {
+      margin: 5px 0;
+    }
+    /* Ensure center alignment on mobile and desktop */
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Header with background image and animated text -->
   <header class="header" id="header">
     <h1>INDIAN ARMY</h1>
   </header>
   
-  <!-- Music Player placed right after the header -->
+  <!-- Music Player placed below header -->
   <div class="music-player">
     <audio controls>
       <source src="https://thelxcode.github.io/AudioPlayer/music/Hare_Hare__Hum_to_dil_se_hare__-_Lofi_Song_%5BSlowed___Reverb%5D___ShariqueKhan___Nic_Lofi(256k).mp3" type="audio/mpeg">
@@ -119,6 +166,12 @@
     </audio>
   </div>
   
+  <!-- Names Button placed below Music Player -->
+  <div class="names-button-container">
+    <button onclick="openNamesModal()">Names</button>
+  </div>
+  
+  <!-- Gallery of Posters -->
   <div class="gallery">
     <div class="gallery-item">
       <img src="https://i.postimg.cc/7PzDjYW3/soldier.jpg" onclick="openModal(this.src)" alt="Photo 1">
@@ -146,9 +199,25 @@
     </div>
   </div>
   
+  <!-- Modal for full-screen image view -->
   <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="modalImg">
+  </div>
+  
+  <!-- Modal for Names -->
+  <div id="namesModal" class="modal">
+    <span class="close" onclick="closeNamesModal()">&times;</span>
+    <div class="names-content">
+      <ol>
+        <li>Ankit</li>
+        <li>Arpita</li>
+        <li>Bhanwar Lal</li>
+        <li>Babu Lal</li>
+        <li>Shankar Lal</li>
+        <li>Shubham</li>
+      </ol>
+    </div>
   </div>
   
   <script>
@@ -175,8 +244,17 @@
     function closeModal() {
       document.getElementById("myModal").style.display = "none";
     }
+    
+    function openNamesModal() {
+      document.getElementById("namesModal").style.display = "flex";
+    }
+    function closeNamesModal() {
+      document.getElementById("namesModal").style.display = "none";
+    }
+    
     document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("myModal").style.display = "none";
+      document.getElementById("namesModal").style.display = "none";
       changeBackground();
     });
   </script>
