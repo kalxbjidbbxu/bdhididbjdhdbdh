@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Responsive Website with Updated Gallery, Music & Header</title>
+  <title>Responsive Website with Typing Animation & Working Music Player</title>
   <style>
     /* Header styles with Typing Animation (Multiline) */
     .header {
@@ -21,7 +21,6 @@
     .header h1 {
       display: inline-block;
       overflow: hidden;
-      /* Allow text to wrap into multiple lines if needed */
       white-space: pre-wrap;
       word-break: break-word;
       border-right: .15em solid orange;
@@ -30,7 +29,6 @@
       background-color: rgba(0, 0, 0, 0.6);
       border-radius: 5px;
       max-width: 90vw;
-      /* Animate max-width from 0 to 90vw to create a typing effect */
       animation: typing 4s steps(70, end) forwards, blink-caret 0.75s step-end infinite;
     }
     @keyframes typing {
@@ -227,8 +225,8 @@
   <div class="music-player-container">
     <!-- Music Player -->
     <div class="music-player" onclick="togglePlayPause()">
-      <!-- Updated Music Link -->
-      <audio id="myAudio" src="https://github.com/thelxcode/AudioPlayer/blob/main/music/Kuch_sala_baad_yaara.mp3" loop></audio>
+      <!-- Updated Music Link using a direct raw file link -->
+      <audio id="myAudio" src="https://raw.githubusercontent.com/thelxcode/AudioPlayer/main/music/Kuch_sala_baad_yaara.mp3" loop></audio>
       <button id="playPauseBtn">&#9658;</button>
     </div>
 
