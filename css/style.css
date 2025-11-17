@@ -98,16 +98,46 @@
   cursor: pointer;
 }
 
-/* Download Button */
-.download-btn {
+/* Unified Modal Buttons */
+.modal-actions {
   margin-top: 20px;
-  background: orange;
-  color: black;
+  display: flex;
+  gap: 10px;
+}
+
+.download-btn,
+.share-btn {
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 18px;
-  text-decoration: none;
   font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+}
+
+/* Download Button */
+.download-btn {
+  background: orange;
+  color: black;
+  border: none;
+}
+
+.download-btn:hover {
+  background: darkorange;
+  color: white;
+}
+
+/* Share Button */
+.share-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+}
+
+.share-btn:hover {
+  background: #0056b3;
 }
 
 /* Modal swipe helper (optional invisible for mobile swipe) */
@@ -135,24 +165,3 @@
   .header h1 { font-size: 1.5em; }
   .gallery img { height: 150px; }
 }
-
-
-.modal-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.share-btn {
-  background: #007bff;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.share-btn:hover { background: #0056b3; }
