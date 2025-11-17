@@ -24,28 +24,29 @@ const bgImages = [
   "https://i.ibb.co/MkVRhpm7/Image-2025-02-19-17-42-23.jpg"
 ];
 
-// ---------- Gallery images with dates ----------
+// ---------- Gallery images with thumbnails & full ----------
+// For simplicity, here thumbnails are same as original (can create small versions later)
 const galleryImages = [
-  { src: "https://i.ibb.co/6cMSLWt6/Image-2025-02-19-17-48-14.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/LhQfcGNT/Image-2025-02-19-17-43-01.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/WWnZDZFq/Image-2025-02-19-17-52-26.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/rG0cHKXP/Image-2025-02-19-17-51-39.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/GQmLkbNR/Image-2025-02-19-17-53-23.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/j9pcsxZh/Image-2025-02-19-17-53-06.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/Ng9kvynX/Image-2025-02-19-17-52-41.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/yFL3DXzc/Image-2025-02-19-17-52-04.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/5Xs8PFqS/Image-2025-02-19-17-51-04.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/xKkR7Sn8/Image-2025-02-19-17-50-44.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/DHJ6VwCR/Image-2025-02-19-17-49-31.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/4wPrmMnW/Image-2025-02-19-17-49-42.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/tpXxr9jn/Image-2025-02-19-17-50-03.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/VW1kTmf8/Image-2025-02-19-17-46-23.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/FLhVKXyK/Image-2025-02-19-17-48-57.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/4g7LhZq9/Image-2025-02-19-17-49-10.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/8nnWMpF9/Image-2025-02-19-17-45-24.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/gMmb6RWx/Image-2025-02-19-17-44-57.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/QFwg9STJ/Image-2025-02-19-17-44-29.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/9kJ2rb6T/Image-2025-02-19-17-43-31.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/TFzgkQZ/Image-2025-02-19-17-42-48.jpg", date: "18 Feb 2025" },
-  { src: "https://i.ibb.co/MkVRhpm7/Image-2025-02-19-17-42-23.jpg", date: "18 Feb 2025" }
+  { thumb: "https://i.ibb.co/6cMSLWt6/Image-2025-02-19-17-48-14.jpg", full: "https://i.ibb.co/6cMSLWt6/Image-2025-02-19-17-48-14.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/LhQfcGNT/Image-2025-02-19-17-43-01.jpg", full: "https://i.ibb.co/LhQfcGNT/Image-2025-02-19-17-43-01.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/WWnZDZFq/Image-2025-02-19-17-52-26.jpg", full: "https://i.ibb.co/WWnZDZFq/Image-2025-02-19-17-52-26.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/rG0cHKXP/Image-2025-02-19-17-51-39.jpg", full: "https://i.ibb.co/rG0cHKXP/Image-2025-02-19-17-51-39.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/GQmLkbNR/Image-2025-02-19-17-53-23.jpg", full: "https://i.ibb.co/GQmLkbNR/Image-2025-02-19-17-53-23.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/j9pcsxZh/Image-2025-02-19-17-53-06.jpg", full: "https://i.ibb.co/j9pcsxZh/Image-2025-02-19-17-53-06.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/Ng9kvynX/Image-2025-02-19-17-52-41.jpg", full: "https://i.ibb.co/Ng9kvynX/Image-2025-02-19-17-52-41.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/yFL3DXzc/Image-2025-02-19-17-52-04.jpg", full: "https://i.ibb.co/yFL3DXzc/Image-2025-02-19-17-52-04.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/5Xs8PFqS/Image-2025-02-19-17-51-04.jpg", full: "https://i.ibb.co/5Xs8PFqS/Image-2025-02-19-17-51-04.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/xKkR7Sn8/Image-2025-02-19-17-50-44.jpg", full: "https://i.ibb.co/xKkR7Sn8/Image-2025-02-19-17-50-44.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/DHJ6VwCR/Image-2025-02-19-17-49-31.jpg", full: "https://i.ibb.co/DHJ6VwCR/Image-2025-02-19-17-49-31.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/4wPrmMnW/Image-2025-02-19-17-49-42.jpg", full: "https://i.ibb.co/4wPrmMnW/Image-2025-02-19-17-49-42.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/tpXxr9jn/Image-2025-02-19-17-50-03.jpg", full: "https://i.ibb.co/tpXxr9jn/Image-2025-02-19-17-50-03.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/VW1kTmf8/Image-2025-02-19-17-46-23.jpg", full: "https://i.ibb.co/VW1kTmf8/Image-2025-02-19-17-46-23.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/FLhVKXyK/Image-2025-02-19-17-48-57.jpg", full: "https://i.ibb.co/FLhVKXyK/Image-2025-02-19-17-48-57.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/4g7LhZq9/Image-2025-02-19-17-49-10.jpg", full: "https://i.ibb.co/4g7LhZq9/Image-2025-02-19-17-49-10.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/8nnWMpF9/Image-2025-02-19-17-45-24.jpg", full: "https://i.ibb.co/8nnWMpF9/Image-2025-02-19-17-45-24.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/gMmb6RWx/Image-2025-02-19-17-44-57.jpg", full: "https://i.ibb.co/gMmb6RWx/Image-2025-02-19-17-44-57.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/QFwg9STJ/Image-2025-02-19-17-44-29.jpg", full: "https://i.ibb.co/QFwg9STJ/Image-2025-02-19-17-44-29.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/9kJ2rb6T/Image-2025-02-19-17-43-31.jpg", full: "https://i.ibb.co/9kJ2rb6T/Image-2025-02-19-17-43-31.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/TFzgkQZ/Image-2025-02-19-17-42-48.jpg", full: "https://i.ibb.co/TFzgkQZ/Image-2025-02-19-17-42-48.jpg", date: "18 Feb 2025" },
+  { thumb: "https://i.ibb.co/MkVRhpm7/Image-2025-02-19-17-42-23.jpg", full: "https://i.ibb.co/MkVRhpm7/Image-2025-02-19-17-42-23.jpg", date: "18 Feb 2025" }
 ];
