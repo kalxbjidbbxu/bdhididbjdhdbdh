@@ -23,11 +23,17 @@
   background-color: rgba(0,0,0,0.6);
   border-radius: 5px;
   max-width: 90vw;
-  animation: typing 4s steps(70, end) forwards, blink-caret 0.75s step-end infinite;
 }
 
-@keyframes typing { from { max-width: 0; } to { max-width: 90vw; } }
-@keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: orange; } }
+/* Blinking caret */
+.header h1.blink {
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: orange; }
+}
 
 /* Gallery */
 .gallery {
