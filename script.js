@@ -22,7 +22,7 @@ galleryImages.forEach((item, index) => {
 
 galleryContainer.appendChild(fragment);
 
-// ---------- Lazy Loading with Intersection Observer ----------
+// ---------- Lazy Loading ----------
 const observer = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
@@ -33,12 +33,12 @@ const observer = new IntersectionObserver((entries, observer) => {
   });
 }, { rootMargin: "50px" });
 
-document.querySelectorAll(".gallery-item img").forEach(img => {
-  observer.observe(img);
-});
+document.querySelectorAll(".gallery-item img").forEach(img => observer.observe(img));
 
 // ---------- Modal ----------
 let currentIndex = 0;
+let startX = 0;
+let endX = 0;
 
 function openModal(index) {
   currentIndex = index;
@@ -64,9 +64,16 @@ function openModal(index) {
       })
       .catch(() => alert('Download failed due to CORS restrictions.'));
   };
+
+  // Touch events for mobile swipe
+  modalImg.addEventListener("touchstart", touchStart, false);
+  modalImg.addEventListener("touchend", touchEnd, false);
 }
 
 function closeModal() {
+  const modalImg = document.getElementById("modalImg");
+  modalImg.removeEventListener("touchstart", touchStart);
+  modalImg.removeEventListener("touchend", touchEnd);
   document.getElementById("myModal").style.display = "none";
 }
 
@@ -79,6 +86,14 @@ function nextImage() {
 function prevImage() {
   currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
   document.getElementById("modalImg").src = galleryImages[currentIndex].full;
+}
+
+// ---------- Touch Swipe Functions ----------
+function touchStart(e) { startX = e.changedTouches[0].screenX; }
+function touchEnd(e) {
+  endX = e.changedTouches[0].screenX;
+  if (startX - endX > 50) nextImage();      // swipe left
+  if (endX - startX > 50) prevImage();      // swipe right
 }
 
 // Keyboard support
