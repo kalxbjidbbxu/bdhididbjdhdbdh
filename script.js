@@ -13,7 +13,7 @@ galleryImages.forEach(item => {
   const div = document.createElement("div");
   div.classList.add("gallery-item");
   div.innerHTML = `
-    <img src="${item.src}" onclick="openModal('${item.src}')">
+    <img src="${item.thumb}" loading="lazy" onclick="openModal('${item.full}')">
     <div class="date">${item.date}</div>
   `;
   galleryContainer.appendChild(div);
