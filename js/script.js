@@ -124,5 +124,31 @@ window.addEventListener("keydown", e => {
   }
 });
 
+const shareBtn = document.getElementById("shareBtn");
+
+shareBtn.onclick = async () => {
+  const imgUrl = galleryImages[currentIndex].full;
+  
+  // If Web Share API is available (mobile devices)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Check this image!",
+        text: "Look at this photo from our gallery.",
+        url: imgUrl
+      });
+    } catch (err) {
+      console.error("Error sharing:", err);
+    }
+  } else {
+    // Fallback: copy image URL to clipboard
+    navigator.clipboard.writeText(imgUrl).then(() => {
+      alert("Image link copied to clipboard!");
+    }).catch(() => {
+      alert("Failed to copy link.");
+    });
+  }
+};
+
 // ---------- Preload Background Images ----------
 bgImages.forEach(url => { const img = new Image(); img.src = url; });
