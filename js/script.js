@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (i < headerText.length) {
       header.innerHTML += headerText.charAt(i);
       i++;
-      setTimeout(typeWriter, 50); // typing speed
+      setTimeout(typeWriter, 50);
     } else {
-      header.classList.add("blink"); // add blinking caret
+      header.classList.add("blink");
     }
   }
 
@@ -54,19 +54,36 @@ const observer = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll(".gallery-item img").forEach(img => observer.observe(img));
 
-// ---------- Modal ----------
+
+// ---------- Modal + Zoom + Swipe ----------
 let currentIndex = 0;
+
 let startX = 0;
 let endX = 0;
 
+let scale = 1;
+let isZoomed = false;
+let initialDistance = 0;
+
+const modalImg = document.getElementById("modalImg");
+
 function openModal(index) {
   currentIndex = index;
+
   const modal = document.getElementById("myModal");
-  const modalImg = document.getElementById("modalImg");
   const downloadBtn = document.getElementById("downloadBtn");
 
   modal.style.display = "flex";
   modalImg.src = galleryImages[currentIndex].full;
+
+  // Reset zoom
+  modalImg.style.transform = "scale(1)";
+  scale = 1;
+  isZoomed = false;
+
+  modalImg.addEventListener("touchstart", touchStartHandler);
+  modalImg.addEventListener("touchmove", touchMoveHandler);
+  modalImg.addEventListener("touchend", touchEndHandler);
 
   downloadBtn.onclick = () => {
     fetch(galleryImages[currentIndex].full)
@@ -83,44 +100,91 @@ function openModal(index) {
       })
       .catch(() => alert('Download failed due to CORS restrictions.'));
   };
-
-  // Touch events for mobile swipe
-  modalImg.addEventListener("touchstart", touchStart, false);
-  modalImg.addEventListener("touchend", touchEnd, false);
 }
 
 function closeModal() {
-  const modalImg = document.getElementById("modalImg");
-  modalImg.removeEventListener("touchstart", touchStart);
-  modalImg.removeEventListener("touchend", touchEnd);
+  modalImg.removeEventListener("touchstart", touchStartHandler);
+  modalImg.removeEventListener("touchmove", touchMoveHandler);
+  modalImg.removeEventListener("touchend", touchEndHandler);
   document.getElementById("myModal").style.display = "none";
 }
 
-// ---------- Modal Navigation ----------
 function nextImage() {
   currentIndex = (currentIndex + 1) % galleryImages.length;
-  document.getElementById("modalImg").src = galleryImages[currentIndex].full;
+  modalImg.src = galleryImages[currentIndex].full;
+  modalImg.style.transform = "scale(1)";
+  scale = 1;
+  isZoomed = false;
 }
 
 function prevImage() {
   currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-  document.getElementById("modalImg").src = galleryImages[currentIndex].full;
+  modalImg.src = galleryImages[currentIndex].full;
+  modalImg.style.transform = "scale(1)";
+  scale = 1;
+  isZoomed = false;
 }
 
-function touchStart(e) { 
-  if (e.touches.length > 1) return; // More than 1 finger = PICH ZOOM
-  startX = e.changedTouches[0].screenX;
+
+// ---------- TOUCH HANDLERS ----------
+
+// Start
+function touchStartHandler(e) {
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].pageX - e.touches[1].pageX;
+    const dy = e.touches[0].pageY - e.touches[1].pageY;
+    initialDistance = Math.sqrt(dx * dx + dy * dy);
+  } else if (!isZoomed && e.touches.length === 1) {
+    startX = e.touches[0].clientX;
+  }
 }
 
-function touchEnd(e) {
-  if (e.changedTouches.length > 1) return; // Prevent swipe on zoom
-  endX = e.changedTouches[0].screenX;
+// Move (Pinch Zoom)
+function touchMoveHandler(e) {
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].pageX - e.touches[1].pageX;
+    const dy = e.touches[0].pageY - e.touches[1].pageY;
+    const newDistance = Math.sqrt(dx * dx + dy * dy);
 
-  if (startX - endX > 50) nextImage();  // swipe left
-  if (endX - startX > 50) prevImage();  // swipe right
+    scale = newDistance / initialDistance;
+
+    if (scale > 1.05) isZoomed = true;
+
+    modalImg.style.transform = `scale(${Math.max(1, scale)})`;
+
+    e.preventDefault();
+  }
 }
 
-// ---------- Keyboard Support ----------
+// End (Reset Zoom OR Swipe)
+function touchEndHandler(e) {
+
+  // If zoomed — reset
+  if (isZoomed) {
+    modalImg.style.transition = "transform 0.2s ease";
+    modalImg.style.transform = "scale(1)";
+    scale = 1;
+    isZoomed = false;
+
+    setTimeout(() => {
+      modalImg.style.transition = "";
+    }, 200);
+
+    return;
+  }
+
+  // Swipe only when NOT zoomed
+  if (e.changedTouches.length === 1) {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (diff > 100) nextImage();  // left swipe
+    if (diff < -100) prevImage(); // right swipe
+  }
+}
+
+
+// ---------- KEYBOARD SUPPORT ----------
 window.addEventListener("keydown", e => {
   if (document.getElementById("myModal").style.display === "flex") {
     if (e.key === "ArrowRight") nextImage();
@@ -129,12 +193,13 @@ window.addEventListener("keydown", e => {
   }
 });
 
+
+// ---------- SHARE BUTTON ----------
 const shareBtn = document.getElementById("shareBtn");
 
 shareBtn.onclick = async () => {
   const imgUrl = galleryImages[currentIndex].full;
-  
-  // If Web Share API is available (mobile devices)
+
   if (navigator.share) {
     try {
       await navigator.share({
@@ -146,7 +211,6 @@ shareBtn.onclick = async () => {
       console.error("Error sharing:", err);
     }
   } else {
-    // Fallback: copy image URL to clipboard
     navigator.clipboard.writeText(imgUrl).then(() => {
       alert("Image link copied to clipboard!");
     }).catch(() => {
@@ -155,5 +219,6 @@ shareBtn.onclick = async () => {
   }
 };
 
-// ---------- Preload Background Images ----------
+
+// ---------- PRELOAD BG ----------
 bgImages.forEach(url => { const img = new Image(); img.src = url; });
